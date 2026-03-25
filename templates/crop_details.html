@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ crop[2] }} Details</title>
+    <style>
+        :root { --primary: #2ecc71; --bg: #0f172a; }
+        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; color: white; display: flex; justify-content: center; padding: 50px; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 40px; max-width: 800px; width: 100%; }
+        .main-img { width: 100%; border-radius: 20px; margin-bottom: 30px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .info-item { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; text-align: center; }
+        .btn-buy { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 15px; width: 100%; font-size: 1.2rem; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="glass-card">
+        <a href="/marketplace" style="color: #888; text-decoration: none;">← Back</a>
+        <h1>{{ crop[2] }} ({{ crop[6] }})</h1>
+        <img src="{{ url_for('static', filename='uploads/' + crop[8]) }}" class="main-img" onerror="this.src='https://via.placeholder.com/800x400?text=Product+Image'">
+        
+        <div class="info-grid">
+            <div class="info-item"><h3>Price</h3><p>₹{{ crop[4] }} / kg</p></div>
+            <div class="info-item"><h3>Quantity</h3><p>{{ crop[3] }}</p></div>
+            <div class="info-item"><h3>Harvested</h3><p>{{ crop[7] }}</p></div>
+            <div class="info-item"><h3>Farmer</h3><p>{{ crop[1] }}</p></div>
+        </div>
+
+        <h3>Location</h3>
+        <p>{{ crop[5] }}</p>
+
+        {% if crop[9] %}
+        <h3>Proof Video</h3>
+        <video width="100%" controls style="border-radius: 15px; margin-bottom: 30px;">
+            <source src="{{ url_for('static', filename='uploads/' + crop[9]) }}" type="video/mp4">
+        </video>
+        {% endif %}
+
+        <button class="btn-buy" onclick="alert('Farmer notified! Contact details sent to your phone.')">Connect with Farmer</button>
+    </div>
+</body>
+</html>

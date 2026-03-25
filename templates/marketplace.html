@@ -1,44 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Live Marketplace | FarmConnect</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Marketplace - FarmConnect</title>
     <style>
         :root { --primary: #2ecc71; --bg: #0f172a; }
-        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; }
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px;
-        }
-        .btn-primary { background: var(--primary); border: none; padding: 10px 20px; border-radius: 10px; color: white; cursor: pointer; font-weight: bold; }
+        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; color: white; padding: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; transition: 0.3s; }
+        .glass-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .crop-img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; }
+        .btn-detail { background: var(--primary); color: white; text-decoration: none; display: block; text-align: center; padding: 12px; border-radius: 10px; font-weight: bold; margin-top: 10px; }
     </style>
 </head>
 <body>
-<div class="container" style="padding: 50px; max-width: 1200px; margin: auto;">
-    <h1 style="text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 3rem;">
-        Live <span style="color: var(--primary);">Marketplace</span>
-    </h1>
-
-    <div class="glass-card" style="margin-bottom: 40px; display: flex; gap: 15px;">
-        <input type="text" placeholder="Search crops (Tomato, Wheat...)" style="flex-grow: 1; padding: 12px; border-radius: 10px; border: none;">
-        <button class="btn-primary">Search</button>
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;">
-        
+    <h1 style="text-align: center; margin-bottom: 50px;">Live <span style="color: var(--primary);">Marketplace</span></h1>
+    
+    <div class="grid">
         {% for crop in crops %}
         <div class="glass-card">
-            <div style="height: 180px; background: url('https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=400') center/cover; border-radius: 15px; margin-bottom: 15px;"></div>
-            <h3 style="margin-bottom: 5px;">{{ crop[2] }}</h3> <p style="color: #aaa; font-size: 0.8rem;">Qty: {{ crop[3] }}</p>
-            <p style="color: #888; font-size: 0.9rem; margin-bottom: 15px;">📍 {{ crop[5] }}</p> <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">₹{{ crop[4] }}/kg</span>
-                <button class="btn-primary" style="padding: 8px 16px; font-size: 0.8rem;">Buy Now</button>
-            </div>
+            <img src="{{ url_for('static', filename='uploads/' + crop[8]) }}" class="crop-img" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+            <h3>{{ crop[2] }}</h3>
+            <p style="color: var(--primary); font-size: 1.2rem; font-weight: bold;">₹{{ crop[4] }} / kg</p>
+            <p style="color: #aaa;">📍 {{ crop[5] }}</p>
+            <p style="font-size: 0.9rem;">Farmer: {{ crop[1] }}</p>
+            <a href="{{ url_for('crop_details', crop_id=crop[0]) }}" class="btn-detail">View Full Details</a>
         </div>
         {% endfor %}
-
     </div>
-</div>
 </body>
 </html>

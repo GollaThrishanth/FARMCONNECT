@@ -3,208 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FarmConnect | Empowering Rural Entrepreneurship</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <title>FarmConnect | Empowering Rural India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-green: #2ecc71;
-            --dark-green: #219150;
-            --bg-light: #f4fff9;
-            --text-dark: #2c3e50;
+            --primary: #2ecc71;
+            --dark: #0f172a;
+            --glass: rgba(255, 255, 255, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
         body {
-            background-color: white;
-            color: var(--text-dark);
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 80px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 24px;
-            text-decoration: none;
-            color: var(--text-dark);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text-dark);
-        }
-
-        .header-login-btn {
-            background-color: var(--primary-green);
+            background: var(--dark);
             color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
+            overflow-x: hidden;
         }
 
         .hero {
+            min-height: 100vh;
+            width: 100%;
+            background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.7)), 
+                        url('https://images.unsplash.com/photo-1586864387917-f579ae5259fb?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
             display: flex;
-            padding: 80px;
-            gap: 40px;
-            background-color: var(--bg-light);
+            flex-direction: column;
         }
 
-        .hero-text {
+        header {
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(15px);
+            background: rgba(15, 23, 42, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        
+        .logo-img { 
+            width: 48px; 
+            height: 48px; 
+            border-radius: 12px; 
+            border: 2px solid var(--primary);
+            background-color: white;
+            object-fit: contain;
+            padding: 2px;
+        }
+        
+        .logo-text { font-size: 1.6rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
+        .logo-text span { color: var(--primary); }
+
+        nav ul { list-style: none; display: flex; gap: 35px; }
+        nav a { text-decoration: none; color: #cbd5e1; font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
+        nav a:hover { color: var(--primary); }
+
+        .header-login-btn { 
+            background-color: var(--primary); 
+            color: white; 
+            padding: 10px 25px; 
+            border-radius: 10px; 
+            text-decoration: none; 
+            font-weight: 700; 
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
+        }
+        .header-login-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); }
+
+        .hero-main {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
         }
 
-        .hero-title {
-            font-size: 42px;
-            font-weight: 700;
-        }
+        .hero-title { font-size: 3.5rem; font-weight: 800; max-width: 900px; line-height: 1.2; margin-bottom: 20px; }
+        .hero-title span { color: var(--primary); text-shadow: 0 0 30px rgba(46, 204, 113, 0.3); }
+        
+        .hero-desc { font-size: 1.2rem; color: #94a3b8; max-width: 650px; margin-bottom: 40px; }
 
-        .hero-title span {
-            color: var(--primary-green);
-        }
-
-        .hero-desc {
-            margin: 20px 0;
-            color: #7f8c8d;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            margin-right: 10px;
-        }
-
-        .btn-fill {
-            background-color: var(--primary-green);
-            color: white;
-        }
-
-        .btn-outline {
-            border: 2px solid var(--primary-green);
-            color: var(--primary-green);
-        }
-
-        .hero-img img {
-            max-width: 100%;
-            border-radius: 15px;
-        }
+        .btn-group { display: flex; gap: 20px; }
+        .btn { padding: 16px 35px; border-radius: 12px; text-decoration: none; font-weight: 700; transition: 0.4s; }
+        .btn-fill { background-color: var(--primary); color: white; }
+        .btn-outline { border: 2px solid white; color: white; }
+        .btn:hover { transform: scale(1.05); }
 
         .counters {
-            display: flex;
-            padding: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px;
         }
 
         .counter-card {
-            flex: 1;
-            background: #f9f9f9;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
             padding: 30px;
-            border-radius: 12px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
+            transition: 0.3s;
         }
-
-        .value {
-            font-size: 32px;
-            font-weight: 700;
-        }
-
-        .label {
-            color: #777;
-        }
+        .counter-card:hover { border-color: var(--primary); background: rgba(255, 255, 255, 0.15); }
+        .value { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; }
+        .label { color: #94a3b8; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
 
     </style>
 </head>
-
 <body>
 
-<header>
-    <a href="/" class="logo">FarmConnect</a>
-
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/marketplace">Products</a></li>
-            <li><a href="/dashboard">Dashboard</a></li>
-        </ul>
-    </nav>
-
-    <a href="/login" class="header-login-btn">Login</a>
-</header>
-
-
 <section class="hero">
-    <div class="hero-text">
+    <header>
+        <a href="/" class="logo-container">
+            <img src="{{ url_for('static', filename='logo.jpeg') }}" class="logo-img" alt="FarmConnect Logo">
+            <div class="logo-text">Farm<span>Connect</span></div>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/marketplace">Products</a></li>
+                <li><a href="http://localhost:8501" target="_blank">Dashboard</a></li>
+            </ul>
+        </nav>
+        <a href="/login" class="header-login-btn">Login</a>
+    </header>
+
+    <div class="hero-main">
         <h1 class="hero-title">
-            Empowering Farmers Through <span>Value-Added</span> Products
+            Empowering Farmers Through <span>Smart Inter-State</span> Logistics
         </h1>
-
         <p class="hero-desc">
-            Transform crops into premium products and connect with buyers.
+            Directly connect with buyers across India. High-speed transport and premium value-added product marketplace.
         </p>
-
-        <a href="/register" class="btn btn-fill">Get Started</a>
-        <a href="/dashboard" class="btn btn-outline">View Dashboard</a>
-    </div>
-
-    <div class="hero-img">
-        <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea" alt="Farmer">
-    </div>
-</section>
-
-
-<section class="counters">
-
-    <div class="counter-card">
-        <div class="value">
-            {{ "{:,.0f}".format(counts.farmers or 0) }}+
+        <div class="btn-group">
+            <a href="/register" class="btn btn-fill">Get Started Now</a>
+            <a href="http://localhost:8501" target="_blank" class="btn btn-outline">Live Dashboard</a>
         </div>
-        <div class="label">Farmers</div>
-    </div>
 
-    <div class="counter-card">
-        <div class="value">
-            {{ "{:,.0f}".format(counts.buyers or 0) }}+
-        </div>
-        <div class="label">Buyers</div>
+        <section class="counters">
+            <div class="counter-card">
+                <div class="value">{{ counts.farmers }}</div>
+                <div class="label">Farmers Registered</div>
+            </div>
+            <div class="counter-card">
+                <div class="value">{{ counts.buyers }}</div>
+                <div class="label">Verified Buyers</div>
+            </div>
+            <div class="counter-card">
+                <div class="value">{{ counts.products }}</div>
+                <div class="label">Active Listings</div>
+            </div>
+            <div class="counter-card">
+                <div class="value">{{ counts.countries }}</div>
+                <div class="label">States Reached</div>
+            </div>
+        </section>
     </div>
-
-    <div class="counter-card">
-        <div class="value">
-            {{ "{:,.0f}".format(counts.products or 0) }}+
-        </div>
-        <div class="label">Products</div>
-    </div>
-
-    <div class="counter-card">
-        <div class="value">
-            {{ "{:,.0f}".format(counts.countries or 0) }}+
-        </div>
-        <div class="label">Countries</div>
-    </div>
-
 </section>
 
 </body>
