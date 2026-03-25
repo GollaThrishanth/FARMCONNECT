@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | FarmConnect</title>
+
+    <style>
+        :root { --primary: #2ecc71; --bg: #f4fff9; }
+
+        body {
+            font-family: sans-serif;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 380px;
+            text-align: center;
+            position: relative;
+        }
+
+        #lang-switch {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .register-text {
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .register-text a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <select id="lang-switch" onchange="updateLogin()">
+        <option value="en">English</option>
+        <option value="te">Telugu</option>
+        <option value="hi">Hindi</option>
+        <option value="ta">Tamil</option>
+        <option value="kn">Kannada</option>
+    </select>
+
+    <h2 id="t">Login</h2>
+
+    <form action="/post_login" method="POST">
+        <div class="input-group">
+            <label id="n">FULL NAME</label>
+            <input type="text" name="name" required>
+        </div>
+
+        <div class="input-group">
+            <label id="p">PHONE NUMBER</label>
+            <input type="tel" name="phone" required>
+        </div>
+
+        <div class="input-group">
+            <label id="a">AADHAAR NUMBER</label>
+            <input type="text" name="aadhar" required>
+        </div>
+
+        <div class="input-group">
+            <label id="pass">PASSWORD</label>
+            <input type="password" name="password" required>
+        </div>
+
+        <button type="submit" class="btn" id="b">Login</button>
+    </form>
+
+    <!-- 🔥 FIXED LINK -->
+    <p class="register-text">
+        <span id="r-text">No account?</span>
+        <a href="{{ url_for('register_page') }}">Create Account here</a>
+    </p>
+
+</div>
+
+<script>
+const dict = {
+    en: { t:"Login", n:"FULL NAME", p:"PHONE NUMBER", a:"AADHAAR NUMBER", pass:"PASSWORD", b:"Login", r:"No account?" },
+    te: { t:"లాగిన్", n:"పూర్తి పేరు", p:"ఫోన్ నంబర్", a:"ఆధార్ సంఖ్య", pass:"పాస్వర్డ్", b:"లాగిన్", r:"ఖాతా లేదా?" },
+    hi: { t:"लॉगिन", n:"पूरा नाम", p:"फ़ोन नंबर", a:"आधार नंबर", pass:"पासवर्ड", b:"लॉगिन", r:"खाता नहीं है?" },
+    ta: { t:"உள்நுழை", n:"முழு பெயர்", p:"தொலைபேசி எண்", a:"ஆதார் எண்", pass:"கடவுச்சொல்", b:"உள்நுழை", r:"கணக்கு இல்லையா?" },
+    kn: { t:"ಲಾಗಿನ್", n:"ಪೂರ್ಣ ಹೆಸರು", p:"ಫೋನ್ ಸಂಖ್ಯೆ", a:"ಆಧಾರ್ ಸಂಖ್ಯೆ", pass:"ಪಾಸ್ವರ್ಡ್", b:"ಲಾಗಿನ್", r:"ಖಾತೆ ಇಲ್ಲವೇ?" }
+};
+
+function updateLogin() {
+    const l = document.getElementById('lang-switch').value;
+
+    document.getElementById('t').innerText = dict[l].t;
+    document.getElementById('n').innerText = dict[l].n;
+    document.getElementById('p').innerText = dict[l].p;
+    document.getElementById('a').innerText = dict[l].a;
+    document.getElementById('pass').innerText = dict[l].pass;
+    document.getElementById('b').innerText = dict[l].b;
+
+    // 🔥 ONLY update text, NOT the link
+    document.getElementById('r-text').innerText = dict[l].r;
+}
+</script>
+
+</body>
+</html>

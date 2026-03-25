@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmConnect | Empowering Rural Entrepreneurship</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #219150;
+            --bg-light: #f4fff9;
+            --text-dark: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: white;
+            color: var(--text-dark);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 24px;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .header-login-btn {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .hero {
+            display: flex;
+            padding: 80px;
+            gap: 40px;
+            background-color: var(--bg-light);
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        .hero-title span {
+            color: var(--primary-green);
+        }
+
+        .hero-desc {
+            margin: 20px 0;
+            color: #7f8c8d;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .btn-fill {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .hero-img img {
+            max-width: 100%;
+            border-radius: 15px;
+        }
+
+        .counters {
+            display: flex;
+            padding: 60px;
+            gap: 20px;
+        }
+
+        .counter-card {
+            flex: 1;
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .value {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .label {
+            color: #777;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a href="/" class="logo">FarmConnect</a>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/marketplace">Products</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <a href="/login" class="header-login-btn">Login</a>
+</header>
+
+
+<section class="hero">
+    <div class="hero-text">
+        <h1 class="hero-title">
+            Empowering Farmers Through <span>Value-Added</span> Products
+        </h1>
+
+        <p class="hero-desc">
+            Transform crops into premium products and connect with buyers.
+        </p>
+
+        <a href="/register" class="btn btn-fill">Get Started</a>
+        <a href="/dashboard" class="btn btn-outline">View Dashboard</a>
+    </div>
+
+    <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea" alt="Farmer">
+    </div>
+</section>
+
+
+<section class="counters">
+
+    <div class="counter-card">
+        <div class="value">
+            {{ "{:,.0f}".format(counts.farmers or 0) }}+
+        </div>
+        <div class="label">Farmers</div>
+    </div>
+
+    <div class="counter-card">
+        <div class="value">
+            {{ "{:,.0f}".format(counts.buyers or 0) }}+
+        </div>
+        <div class="label">Buyers</div>
+    </div>
+
+    <div class="counter-card">
+        <div class="value">
+            {{ "{:,.0f}".format(counts.products or 0) }}+
+        </div>
+        <div class="label">Products</div>
+    </div>
+
+    <div class="counter-card">
+        <div class="value">
+            {{ "{:,.0f}".format(counts.countries or 0) }}+
+        </div>
+        <div class="label">Countries</div>
+    </div>
+
+</section>
+
+</body>
+</html>

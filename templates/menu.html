@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FarmConnect | Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> [cite: 194]
+</head>
+<body>
+    <div class="login-card"> [cite: 209]
+        <h1>FarmConnect</h1>
+        <p>Choose your action:</p>
+        <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+            <a href="/open_dashboard"><button class="login-btn">📊 View Today Price Chart</button></a>
+            <a href="/marketplace"><button class="login-btn" style="background: #1976d2;">🛒 Buy Crops</button></a>
+            <a href="/sell"><button class="login-btn" style="background: #f57c00;">🌾 Sell Your Crops</button></a>
+        </div>
+    </div>
+</body>
+</html>

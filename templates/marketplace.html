@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Marketplace | FarmConnect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        :root { --primary: #2ecc71; --bg: #0f172a; }
+        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; }
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px;
+        }
+        .btn-primary { background: var(--primary); border: none; padding: 10px 20px; border-radius: 10px; color: white; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container" style="padding: 50px; max-width: 1200px; margin: auto;">
+    <h1 style="text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 3rem;">
+        Live <span style="color: var(--primary);">Marketplace</span>
+    </h1>
+
+    <div class="glass-card" style="margin-bottom: 40px; display: flex; gap: 15px;">
+        <input type="text" placeholder="Search crops (Tomato, Wheat...)" style="flex-grow: 1; padding: 12px; border-radius: 10px; border: none;">
+        <button class="btn-primary">Search</button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;">
+        
+        {% for crop in crops %}
+        <div class="glass-card">
+            <div style="height: 180px; background: url('https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=400') center/cover; border-radius: 15px; margin-bottom: 15px;"></div>
+            <h3 style="margin-bottom: 5px;">{{ crop[2] }}</h3> <p style="color: #aaa; font-size: 0.8rem;">Qty: {{ crop[3] }}</p>
+            <p style="color: #888; font-size: 0.9rem; margin-bottom: 15px;">📍 {{ crop[5] }}</p> <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">₹{{ crop[4] }}/kg</span>
+                <button class="btn-primary" style="padding: 8px 16px; font-size: 0.8rem;">Buy Now</button>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+</body>
+</html>
