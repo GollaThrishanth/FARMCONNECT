@@ -7,11 +7,13 @@
         :root { --primary: #2ecc71; --bg: #f4fff9; }
         body { font-family: sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 20px; }
         .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 450px; position: relative; }
-        .input-group { margin-bottom: 12px; }
-        label { font-size: 11px; font-weight: bold; color: #7f8c8d; display: block; margin-bottom: 5px; }
+        .input-group { margin-bottom: 12px; position: relative; }
+        .label-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        label { font-size: 11px; font-weight: bold; color: #7f8c8d; }
         input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
         .btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        #lang-switch { position: absolute; top: 15px; right: 15px; }
+        #lang-switch { position: absolute; top: 15px; right: 15px; z-index: 10; }
+        #delivery-fields { border-left: 3px solid var(--primary); padding-left: 15px; margin-top: 10px; display: none; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -23,29 +25,47 @@
         <option value="ta">Tamil</option>
         <option value="kn">Kannada</option>
     </select>
-    <h2 id="reg-title" style="text-align:center">Register</h2>
     
+    <h2 id="reg-title" style="text-align:center">Register</h2>
+
     <form action="/post_register" method="POST">
         <div class="input-group">
-            <label id="l-type">REGISTER AS</label>
-            <select name="user_type" required>
-                <option value="farmer">Farmer</option>
-                <option value="buyer">Buyer</option>
+            <div class="label-container">
+                <label id="l-type">REGISTER AS</label>
+            </div>
+            <select name="user_type" id="user_type" onchange="toggleDeliveryFields()" required>
+                <option value="farmer" id="opt-farmer">Farmer</option>
+                <option value="buyer" id="opt-buyer">Buyer</option>
+                <option value="delivery" id="opt-delivery">Delivery Partner</option>
             </select>
         </div>
 
+        <div id="delivery-fields">
+            <div class="input-group">
+                <div class="label-container">
+                    <label id="l-truck">TRUCK MODEL</label>
+                </div>
+                <input type="text" name="truck_model" placeholder="e.g. Tata Ace">
+            </div>
+            <div class="input-group">
+                <div class="label-container">
+                    <label id="l-cap">CAPACITY (Tons)</label>
+                </div>
+                <input type="number" name="capacity">
+            </div>
+        </div>
+
         <div class="input-group">
-            <label id="l-name">FULL NAME</label>
+            <div class="label-container">
+                <label id="l-name">FULL NAME</label>
+            </div>
             <input type="text" name="name" required>
         </div>
 
         <div class="input-group">
-            <label>COUNTRY</label>
-            <input type="text" name="country" value="India" readonly>
-        </div>
-
-        <div class="input-group">
-            <label id="l-state">STATE</label>
+            <div class="label-container">
+                <label id="l-state">STATE</label>
+            </div>
             <select name="state" required>
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
                 <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -87,22 +107,30 @@
         </div>
 
         <div class="input-group">
-            <label id="l-dist">DISTRICT</label>
+            <div class="label-container">
+                <label id="l-dist">DISTRICT</label>
+            </div>
             <input type="text" name="district" required>
         </div>
 
         <div class="input-group">
-            <label id="l-phone">PHONE NUMBER</label>
+            <div class="label-container">
+                <label id="l-phone">PHONE NUMBER</label>
+            </div>
             <input type="tel" name="phone" required>
         </div>
 
         <div class="input-group">
-            <label id="l-aadhar">AADHAAR NUMBER</label>
+            <div class="label-container">
+                <label id="l-aadhar">AADHAAR NUMBER</label>
+            </div>
             <input type="text" name="aadhar" required>
         </div>
 
         <div class="input-group">
-            <label id="l-pass">PASSWORD</label>
+            <div class="label-container">
+                <label id="l-pass">PASSWORD</label>
+            </div>
             <input type="password" name="password" required>
         </div>
 
@@ -111,25 +139,58 @@
 </div>
 
 <script>
-    const data = {
-        en: { title:"Register", type:"REGISTER AS", name:"FULL NAME", state:"STATE", dist:"DISTRICT", phone:"PHONE NUMBER", aadhar:"AADHAAR NUMBER", pass:"PASSWORD", btn:"Register" },
-        te: { title:"నమోదు", type:"ఇలా నమోదు చేయండి", name:"పూర్తి పేరు", state:"రాష్ట్రం", dist:"జిల్లా", phone:"ఫోన్ నంబర్", aadhar:"ఆధార్ సంఖ్య", pass:"పాస్వర్డ్", btn:"నమోదు చేయండి" },
-        hi: { title:"पंजीकरण", type:"के रूप में पंजीकृत करें", name:"पूरा नाम", state:"राज्य", dist:"ज़िला", phone:"फ़ोन नंबर", aadhar:"आधार नंबर", pass:"पासवर्ड", btn:"रजिस्टर" },
-        ta: { title:"பதிவு", type:"இப்படி பதிவு செய்க", name:"முழு பெயர்", state:"மாநிலம்", dist:"மாவட்டம்", phone:"தொலைபேசி எண்", aadhar:"ஆதார் எண்", pass:"கடவுச்சொல்", btn:"பதிவு செய்க" },
-        kn: { title:"ನೋಂದಣಿ", type:"ಹೀಗೆ ನೋಂದಾಯಿಸಿ", name:"ಪೂರ್ಣ ಹೆಸರು", state:"ರಾಜ್ಯ", dist:"ಜಿಲ್ಲೆ", phone:"ಫೋನ್ ಸಂಖ್ಯೆ", aadhar:"ಆಧಾರ್ ಸಂಖ್ಯೆ", pass:"ಪಾಸ್ವರ್ಡ್", btn:"ನೋಂದಾಯಿಸಿ" }
+    const translations = {
+        en: {
+            title: "Register", type: "REGISTER AS", farmer: "Farmer", buyer: "Buyer", delivery: "Delivery Partner",
+            name: "FULL NAME", state: "STATE", dist: "DISTRICT", phone: "PHONE NUMBER", aadhar: "AADHAAR NUMBER",
+            pass: "PASSWORD", btn: "Register", truck: "TRUCK MODEL", cap: "CAPACITY"
+        },
+        te: {
+            title: "నమోదు చేయండి", type: "ఇలా నమోదు చేయండి", farmer: "రైతు", buyer: "కొనుగోలుదారు", delivery: "డెలివరీ పార్టనర్",
+            name: "పూర్తి పేరు", state: "రాష్ట్రం", dist: "జిల్లా", phone: "ఫోన్ నంబర్", aadhar: "ఆధార్ నంబర్",
+            pass: "పాస్‌వర్డ్", btn: "రిజిస్టర్", truck: "ట్రక్ మోడల్", cap: "సామర్థ్యం"
+        },
+        hi: {
+            title: "पंजीकरण", type: "इस रूप में पंजीकरण करें", farmer: "किसान", buyer: "खरीददार", delivery: "डिलिवरी पार्टनर",
+            name: "पूरा नाम", state: "राज्य", dist: "ज़िला", phone: "फ़ोन नंबर", aadhar: "आधार नंबर",
+            pass: "पासवर्ड", btn: "रजिस्टर करें", truck: "ट्रक मॉडल", cap: "क्षमता"
+        },
+        ta: {
+            title: "பதிவு செய்க", type: "இவராகப் பதிவு செய்யுங்கள்", farmer: "விவசாயி", buyer: "வாங்குபவர்", delivery: "டெலிவரி பார்ட்னர்",
+            name: "முழு பெயர்", state: "மாநிலம்", dist: "மாவட்டம்", phone: "தொலைபேசி எண்", aadhar: "ஆதார் எண்",
+            pass: "கடவுச்சொல்", btn: "பதிவு", truck: "டிரக் மாடல்", cap: "திறன்"
+        },
+        kn: {
+            title: "ನೋಂದಣಿ", type: "ಹೀಗೆ ನೋಂದಾಯಿಸಿ", farmer: "ರೈತ", buyer: "ಖರೀದಿದಾರ", delivery: "ಡೆಲಿವರಿ ಪಾರ್ಟ್ನರ್",
+            name: "ಪೂರ್ಣ ಹೆಸರು", state: "ರಾಜ್ಯ", dist: "ಜಿಲ್ಲೆ", phone: "ಫೋನ್ ಸಂಖ್ಯೆ", aadhar: "ಆಧಾರ್ ಸಂಖ್ಯೆ",
+            pass: "ಪಾಸ್‌ವರ್ಡ್", btn: "ನೋಂದಾಯಿಸಿ", truck: "ಟ್ರಕ್ ಮಾಡೆಲ್", cap: "ಸಾಮರ್ಥ್ಯ"
+        }
     };
-    
+
     function updateUI() {
-        const l = document.getElementById('lang-switch').value;
-        document.getElementById('reg-title').innerText = data[l].title;
-        document.getElementById('l-type').innerText = data[l].type;
-        document.getElementById('l-name').innerText = data[l].name;
-        document.getElementById('l-state').innerText = data[l].state;
-        document.getElementById('l-dist').innerText = data[l].dist;
-        document.getElementById('l-phone').innerText = data[l].phone;
-        document.getElementById('l-aadhar').innerText = data[l].aadhar;
-        document.getElementById('l-pass').innerText = data[l].pass;
-        document.getElementById('reg-btn').innerText = data[l].btn;
+        const lang = document.getElementById('lang-switch').value;
+        const t = translations[lang] || translations['en'];
+
+        document.getElementById('reg-title').innerText = t.title;
+        document.getElementById('l-type').innerText = t.type;
+        document.getElementById('opt-farmer').innerText = t.farmer;
+        document.getElementById('opt-buyer').innerText = t.buyer;
+        document.getElementById('opt-delivery').innerText = t.delivery;
+        document.getElementById('l-name').innerText = t.name;
+        document.getElementById('l-state').innerText = t.state;
+        document.getElementById('l-dist').innerText = t.dist;
+        document.getElementById('l-phone').innerText = t.phone;
+        document.getElementById('l-aadhar').innerText = t.aadhar;
+        document.getElementById('l-pass').innerText = t.pass;
+        document.getElementById('reg-btn').innerText = t.btn;
+
+        if(document.getElementById('l-truck')) document.getElementById('l-truck').innerText = t.truck;
+        if(document.getElementById('l-cap')) document.getElementById('l-cap').innerText = t.cap;
+    }
+
+    function toggleDeliveryFields() {
+        const type = document.getElementById('user_type').value;
+        document.getElementById('delivery-fields').style.display = (type === 'delivery') ? 'block' : 'none';
     }
 </script>
 </body>

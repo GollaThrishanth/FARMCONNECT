@@ -4,34 +4,45 @@
     --primary: #22c55e;
     --primary-glow: rgba(34, 197, 94, 0.4);
     --bg-dark: #0a0f0b;
-    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-bg: rgba(0, 0, 0, 0.65);
     --card-border: rgba(255, 255, 255, 0.1);
+    --whatsapp: #25D366;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+}
 
 body {
-    background: radial-gradient(circle at top right, #1a2e1a, var(--bg-dark));
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url("bg.veggies.jpg.jpeg"); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: var(--bg-dark); 
     color: #ffffff;
     min-height: 100vh;
-    overflow-x: hidden;
 }
 
 /* THE GLASS CARD EFFECT */
 .glass-card {
     background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--card-border);
     border-radius: 24px;
-    padding: 2rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
     transition: all 0.3s ease;
 }
 
 .glass-card:hover {
     border-color: var(--primary);
-    box-shadow: 0 0 20px var(--primary-glow);
+    box-shadow: 0 0 25px var(--primary-glow);
     transform: translateY(-5px);
 }
 
@@ -47,16 +58,18 @@ body {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
+    display: inline-block;
+    text-align: center;
 }
 
 .btn-primary:hover {
     box-shadow: 0 0 15px var(--primary);
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 /* INPUT FIELDS */
 input {
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
     border: 1px solid var(--card-border) !important;
     color: white !important;
     padding: 14px !important;
@@ -68,4 +81,5 @@ input {
 input:focus {
     border-color: var(--primary) !important;
     outline: none;
+    background: rgba(255, 255, 255, 0.12) !important;
 }
