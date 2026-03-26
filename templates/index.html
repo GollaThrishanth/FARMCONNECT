@@ -4,29 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FarmConnect | Empowering Rural India</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
     <style>
-        :root {
-            --primary: #2ecc71;
-            --dark: #0f172a;
-            --glass: rgba(255, 255, 255, 0.1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-
-        body {
-            background: var(--dark);
-            color: white;
-            overflow-x: hidden;
-        }
-
+        /* Keeping only the layout-specific Hero styling here */
         .hero {
             min-height: 100vh;
             width: 100%;
-            background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.7)), 
-                        url('https://images.unsplash.com/photo-1586864387917-f579ae5259fb?q=80&w=2070&auto=format&fit=crop'); 
-            background-size: cover;
-            background-position: center;
             display: flex;
             flex-direction: column;
         }
@@ -37,7 +22,7 @@
             justify-content: space-between;
             align-items: center;
             backdrop-filter: blur(15px);
-            background: rgba(15, 23, 42, 0.4);
+            background: rgba(10, 15, 11, 0.7);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
@@ -45,7 +30,6 @@
         }
 
         .logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        
         .logo-img { 
             width: 48px; 
             height: 48px; 
@@ -63,18 +47,6 @@
         nav a { text-decoration: none; color: #cbd5e1; font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
         nav a:hover { color: var(--primary); }
 
-        .header-login-btn { 
-            background-color: var(--primary); 
-            color: white; 
-            padding: 10px 25px; 
-            border-radius: 10px; 
-            text-decoration: none; 
-            font-weight: 700; 
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
-        }
-        .header-login-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); }
-
         .hero-main {
             flex: 1;
             display: flex;
@@ -86,16 +58,10 @@
         }
 
         .hero-title { font-size: 3.5rem; font-weight: 800; max-width: 900px; line-height: 1.2; margin-bottom: 20px; }
-        .hero-title span { color: var(--primary); text-shadow: 0 0 30px rgba(46, 204, 113, 0.3); }
-        
+        .hero-title span { color: var(--primary); }
         .hero-desc { font-size: 1.2rem; color: #94a3b8; max-width: 650px; margin-bottom: 40px; }
 
         .btn-group { display: flex; gap: 20px; }
-        .btn { padding: 16px 35px; border-radius: 12px; text-decoration: none; font-weight: 700; transition: 0.4s; }
-        .btn-fill { background-color: var(--primary); color: white; }
-        .btn-outline { border: 2px solid white; color: white; }
-        .btn:hover { transform: scale(1.05); }
-
         .counters {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -106,19 +72,8 @@
             padding: 0 20px;
         }
 
-        .counter-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            transition: 0.3s;
-        }
-        .counter-card:hover { border-color: var(--primary); background: rgba(255, 255, 255, 0.15); }
         .value { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; }
         .label { color: #94a3b8; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
-
     </style>
 </head>
 <body>
@@ -133,38 +88,40 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/marketplace">Products</a></li>
-                <li><a href="http://localhost:8501" target="_blank">Dashboard</a></li>
+                <li><a href="/dashboard" target="_blank">Dashboard</a></li>
             </ul>
         </nav>
-        <a href="/login" class="header-login-btn">Login</a>
+        <a href="/login" class="btn-primary" style="text-decoration: none;">Login</a>
     </header>
 
     <div class="hero-main">
-        <h1 class="hero-title">
-            Empowering Farmers Through <span>Smart Inter-State</span> Logistics
-        </h1>
-        <p class="hero-desc">
-            Directly connect with buyers across India. High-speed transport and premium value-added product marketplace.
-        </p>
-        <div class="btn-group">
-            <a href="/register" class="btn btn-fill">Get Started Now</a>
-            <a href="http://localhost:8501" target="_blank" class="btn btn-outline">Live Dashboard</a>
+        <div class="glass-card" style="max-width: 1000px;">
+            <h1 class="hero-title">
+                Empowering Farmers Through <span>Smart Inter-State</span> Logistics
+            </h1>
+            <p class="hero-desc">
+                Directly connect with buyers across India. High-speed transport and premium value-added product marketplace.
+            </p>
+            <div class="btn-group">
+                <a href="/register" class="btn-primary" style="text-decoration: none;">Get Started Now</a>
+                <a href="/dashboard" target="_blank" class="btn-primary" style="text-decoration: none; background: transparent; border: 2px solid white;">Live Dashboard</a>
+            </div>
         </div>
 
         <section class="counters">
-            <div class="counter-card">
+            <div class="glass-card">
                 <div class="value">{{ counts.farmers }}</div>
                 <div class="label">Farmers Registered</div>
             </div>
-            <div class="counter-card">
+            <div class="glass-card">
                 <div class="value">{{ counts.buyers }}</div>
                 <div class="label">Verified Buyers</div>
             </div>
-            <div class="counter-card">
+            <div class="glass-card">
                 <div class="value">{{ counts.products }}</div>
                 <div class="label">Active Listings</div>
             </div>
-            <div class="counter-card">
+            <div class="glass-card">
                 <div class="value">{{ counts.countries }}</div>
                 <div class="label">States Reached</div>
             </div>

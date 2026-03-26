@@ -1,21 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{{ crop[2] }} Details</title>
+    <meta charset="UTF-8">
+    <title>{{ crop[2] }} Details | FarmConnect</title>
     <style>
         :root { --primary: #2ecc71; --bg: #0f172a; }
-        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; color: white; display: flex; justify-content: center; padding: 50px; }
+        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; color: white; display: flex; justify-content: center; padding: 50px; margin: 0; }
         .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 40px; max-width: 800px; width: 100%; }
         .main-img { width: 100%; border-radius: 20px; margin-bottom: 30px; }
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
         .info-item { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; text-align: center; }
-        .btn-buy { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 15px; width: 100%; font-size: 1.2rem; font-weight: bold; cursor: pointer; }
+        .btn-buy { 
+            display: block;
+            background: var(--primary); 
+            color: white; 
+            text-decoration: none;
+            padding: 20px; 
+            border-radius: 15px; 
+            width: 100%; 
+            font-size: 1.2rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-align: center;
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-buy:hover { background: #27ae60; transform: scale(1.02); }
     </style>
 </head>
 <body>
     <div class="glass-card">
-        <a href="/marketplace" style="color: #888; text-decoration: none;">← Back</a>
+        <a href="/marketplace" style="color: #888; text-decoration: none;">← Back to Marketplace</a>
         <h1>{{ crop[2] }} ({{ crop[6] }})</h1>
+        
         <img src="{{ url_for('static', filename='uploads/' + crop[8]) }}" class="main-img" onerror="this.src='https://via.placeholder.com/800x400?text=Product+Image'">
         
         <div class="info-grid">
@@ -35,7 +52,11 @@
         </video>
         {% endif %}
 
-        <button class="btn-buy" onclick="alert('Farmer notified! Contact details sent to your phone.')">Connect with Farmer</button>
+        <a href="/connect_with_farmer/{{ crop[0] }}" 
+           class="btn-buy" 
+           onclick="alert('Farmer notified! Moving to secure delivery dashboard...')">
+           Connect with Farmer
+        </a>
     </div>
 </body>
 </html>
